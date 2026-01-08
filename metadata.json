@@ -1,0 +1,7 @@
+{
+  "name": "Doc2Markdown AI Optimizer",
+  "description": "Convert Word and PDF documents into high-fidelity, AI-optimized Markdown. Features semantic preservation, structure extraction, and formatting optimized for LLM comprehension.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
