@@ -8,10 +8,18 @@ export interface ConversionResult {
   };
 }
 
+export interface BatchItem {
+  id: string;
+  file: File;
+  status: 'pending' | 'processing' | 'completed' | 'error';
+  result?: ConversionResult;
+  error?: string;
+}
+
 export enum AppStatus {
   IDLE = 'IDLE',
   READING = 'READING',
-  CONVERTING = 'CONVERTING',
+  BATCH_PROCESSING = 'BATCH_PROCESSING',
   SUCCESS = 'SUCCESS',
   ERROR = 'ERROR'
 }
