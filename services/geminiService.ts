@@ -9,32 +9,30 @@ export const optimizeMarkdownForAI = async (
   isHtml: boolean = false,
   images: { name: string, data: string }[] = []
 ): Promise<string> => {
-  const imageContext = images.length > 0 
-    ? `\nI am also providing ${images.length} image assets that were attached. Please intelligently reference these images in the Markdown where they semantically belong using the standard Markdown syntax ![alt text](base64_data).
-       Available images: ${images.map(img => img.name).join(', ')}.`
-    : '';
+  
+  // We send the image names but keep the prompt focused on structural integrity.
+  const assetMetadata = images.map(img => img.name).join(', ');
 
   const prompt = `
-    You are an expert document structural engineer and AI context optimizer. 
-    I will provide you with the ${isHtml ? 'HTML source code' : 'raw text extraction'} of a document named "${fileName}".
-    ${imageContext}
+    You are an AI context engineer. I have a document named "${fileName}".
     
-    Your task:
-    1. Convert this content into a clean, highly structured Markdown file.
-    2. Optimize it specifically for LLM comprehension.
-    3. If input is HTML:
-       - Strip unnecessary scripts, styles, and boilerplate (nav, footer, ads).
-       Preserve semantic structure.
-    4. Ensure semantic headers (#, ##, ###) are used correctly.
-    5. Use bolding for key concepts and entities.
-    6. Convert lists and tables into proper Markdown format.
-    7. **Crucial**: If I provided image assets, look for mentions of images, figures, or diagrams in the text and insert the corresponding base64 data URL provided below in the standard Markdown image format.
+    TASK:
+    Convert the provided ${isHtml ? 'HTML' : 'raw text'} into a structured Markdown file optimized for LLM attention.
     
-    IMAGE DATA REFERENCE (Only use these):
-    ${images.map(img => `File Name: ${img.name}\nData URL: ${img.data}`).join('\n\n')}
+    RULES:
+    1. Use H1, H2, H3 hierarchically.
+    2. Convert messy data into clean Markdown tables or lists.
+    3. Remove boilerplate (navs, footers, ad copy).
+    4. BOLD key concepts and entities.
+    5. IMAGE PLACEMENT: If there are references to figures, photos, or diagrams in the text, and I have provided asset names, insert the image using standard Markdown: ![alt text](base64_data).
+    
+    AVAILABLE IMAGE ASSETS:
+    ${images.map(img => `NAME: ${img.name}\nDATA: ${img.data}`).join('\n\n')}
 
     DOCUMENT CONTENT:
     ${rawContent}
+
+    OUTPUT ONLY THE MARKDOWN.
   `;
 
   try {
@@ -46,9 +44,9 @@ export const optimizeMarkdownForAI = async (
       },
     });
 
-    return response.text || "Failed to generate optimized markdown.";
+    return response.text || "Failed to generate markdown.";
   } catch (error) {
     console.error("Gemini Optimization Error:", error);
-    throw new Error("Failed to optimize document for AI.");
+    throw new Error("Failed to optimize document.");
   }
 };

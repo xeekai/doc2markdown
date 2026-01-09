@@ -4,16 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doc2Markdown AI Optimizer</title>
+    <title>Metropolis | Doc2Markdown</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        /* Custom scrollbar for better aesthetics */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --bg-metropolis: #0E1321;
+            --fg-metropolis: #F6F8FA;
+            --accent-orange: #E66C37;
+            --accent-blue: #24B5DA;
+            --accent-deep-blue: #2A81D8;
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-metropolis);
+            color: var(--fg-metropolis);
+        }
+        
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+        
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-orange); }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .metropolis-gradient {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-orange) 100%);
+        }
     </style>
 <script type="importmap">
 {
@@ -33,7 +58,7 @@
 }
 </script>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="selection:bg-orange-500/30">
     <div id="root"></div>
 </body>
 </html>
